@@ -22,8 +22,8 @@ int main() {
     }
 
     //Create two matrix in heap
-    int **firstArray = createMatrix<int>(N, M);
-    int **secondArray = createMatrix<int>(N, M);
+    int **firstArray = createMatrix(N, M);
+    int **secondArray = createMatrix(N, M);
 
     //Filling in matrix data
     for (size_t i = 0; i < N; ++i) {
@@ -34,23 +34,23 @@ int main() {
     }
 
     cout << "Первая матрица\n";
-    printMatrix<int>(firstArray, N, M);
+    printMatrix(firstArray, N, M);
     cout << endl;
 
     cout << "Вторая матрица\n";
-    printMatrix<int>(secondArray, N, M);
+    printMatrix(secondArray, N, M);
     cout << endl;
 
     int **resultMatrix = additionMatrix(firstArray, secondArray, N, M);
 
     cout << "Результат\n";
 
-    printMatrix<int>(resultMatrix, N, M);
+    printMatrix(resultMatrix, N, M);
 
     //Clear memory
-    deleteMatrix<int>(firstArray, N);
-    deleteMatrix<int>(secondArray, N);
-    deleteMatrix<int>(resultMatrix, N);
+    deleteMatrix(firstArray, N);
+    deleteMatrix(secondArray, N);
+    deleteMatrix(resultMatrix, N);
 
     return 0;
 }
