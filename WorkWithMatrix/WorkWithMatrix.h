@@ -4,13 +4,75 @@
 
 #ifndef UNTITLED4_WORKWITHMATRIX_H
 #define UNTITLED4_WORKWITHMATRIX_H
+#include <iostream>
 
-int **multipliesMatrix(int **firstArray, int **secondArray, int const N, int const M);
+using namespace std;
 
-void printDynamicMatrix(int **matrix, int const N, int const M);
+template <typename T>
+T **createMatrix(int N, int M) {
+    int **matrix = new int *[N];
+    for (size_t i = 0; i < N; ++i) {
+        matrix[i] = new int[M];
+    }
 
-int **additionMatrix(int **firstMatrix, int **secondMatrix, int N, int M);
+    return matrix;
+}
 
-int **createMatrix(int N, int M);
+template <typename T>
+void printMatrix(T **matrix, int const N, int const M) {
+    for (size_t i = 0; i < N; ++i) {
+        for (size_t j = 0; j < M; ++j) {
+            cout << matrix[i][j] << "\t";
+        }
+        cout << endl;
+    }
+}
+
+template <typename T>
+T **multipliesMatrix(T **firstArray, T **secondArray, int const N, int const M) {
+    int **resultArray = new int *[N];
+
+    for (size_t i = 0; i < N; ++i) {
+        resultArray[i] = new int[M];
+    }
+
+    for (size_t i = 0; i < N; ++i) {
+        for (size_t j = 0; j < M; ++j) {
+
+            resultArray[i][j] = 0;
+            for (size_t k = 0; k < N; ++k) {
+                resultArray[i][j] += firstArray[i][k] * secondArray[k][j];
+            }
+        }
+    }
+
+    return resultArray;
+
+}
+
+template <typename T>
+T **additionMatrix(T **firstMatrix, T **secondMatrix, int N, int M) {
+    int **resultMatrix = new int *[N];
+    for (size_t i = 0; i < N; ++i) {
+        resultMatrix[i] = new int[M];
+    }
+
+    for (size_t i = 0; i < N; ++i) {
+        for (size_t j = 0; j < M; ++j) {
+            resultMatrix[i][j] = firstMatrix[i][j] + secondMatrix[i][j];
+        }
+    }
+
+    return resultMatrix;
+}
+
+template <typename T>
+void deleteMatrix(T **matrix, int N){
+    for (size_t i = 0; i < N; ++i) {
+        delete[] matrix[i];
+    }
+
+    delete[] matrix;
+}
 
 #endif //UNTITLED4_WORKWITHMATRIX_H
