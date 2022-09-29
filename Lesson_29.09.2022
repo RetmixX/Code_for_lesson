@@ -1,118 +1,61 @@
-// Online C++ compiler to run C++ program online
 #include <iostream>
 #include <ctime>
 
 using namespace std;
 
-int **createMatrix(int N, int M) {
-    int **matrix = new int *[N];
-    for (size_t i = 0; i < N; ++i) {
-        matrix[i] = new int[M];
-    }
+int main() {
+    
+    //Для рандома
+    srand(time(NULL));
+    
+    int const row1 = 3, col1 = 2;
+    int const row2 = 2, col2 = 4;
 
-    return matrix;
-}
-
-void printMatrix(int **matrix, int const N, int const M) {
-    for (size_t i = 0; i < N; ++i) {
-        for (size_t j = 0; j < M; ++j) {
-            cout << matrix[i][j] << "\t";
+    int array1[row1][col1];
+    int array2[row2][col2];
+    
+    int array3[row1][col2];
+    
+    //Заполнение рандомными числами 1 матрицу
+    for (int i = 0; i < row1; ++i) {
+        for (int j = 0; j < col1; ++j) {
+            array1[i][j] = rand() % 5 + 4;
+            cout << array1[i][j] << "\t";
         }
         cout << endl;
     }
-}
 
-int **multipliesMatrix(int **firstArray, int **secondArray, int const N, int const M) {
-    int **resultArray = new int *[N];
-
-    for (size_t i = 0; i < N; ++i) {
-        resultArray[i] = new int[M];
+    cout << endl;
+    
+    //Заполнение рандомными числами 2 матрицу
+    for (int i = 0; i < row2; ++i) {
+        for (int j = 0; j < col2; ++j) {
+            array2[i][j] = rand() % 5 + 4;
+            cout << array2[i][j] << "\t";
+        }
+        cout << endl;
     }
+    cout << endl;
 
-    for (size_t i = 0; i < N; ++i) {
-        for (size_t j = 0; j < M; ++j) {
-
-            resultArray[i][j] = 0;
-            for (size_t k = 0; k < N; ++k) {
-                resultArray[i][j] += firstArray[i][k] * secondArray[k][j];
+    //Перемножение матриц
+    for (int i = 0; i < row1; ++i) {
+        for (int j = 0; j < col2; ++j) {
+            array3[i][j] = 0;
+            for (int k = 0; k < col1; ++k) {
+                array3[i][j] += array1[i][k] * array2[k][j];
             }
+            cout<<endl;
         }
     }
-
-    return resultArray;
-
-}
-
-int **additionMatrix(int **firstMatrix, int **secondMatrix, int N, int M) {
-    int **resultMatrix = new int *[N];
-    for (size_t i = 0; i < N; ++i) {
-        resultMatrix[i] = new int[M];
-    }
-
-    for (size_t i = 0; i < N; ++i) {
-        for (size_t j = 0; j < M; ++j) {
-            resultMatrix[i][j] = firstMatrix[i][j] + secondMatrix[i][j];
+    
+    //Вывод матрицы на экран
+    for (int i = 0; i < row1; ++i) {
+        for (int j = 0; j < col2; ++j) {
+            cout << array3[i][j] << "\t";
         }
+        cout << endl;
     }
 
-    return resultMatrix;
-}
-
-void deleteMatrix(int **matrix, int N){
-    for (size_t i = 0; i < N; ++i) {
-        delete[] matrix[i];
-    }
-
-    delete[] matrix;
-}
-
-int main() {
-
-    setlocale(LC_ALL, "");
-    srand(time(NULL));
-
-    int N, M;
-
-    cout << "Enter N: ";
-    cin >> N;
-    cout << "Enter M: ";
-    cin >> M;
-
-    if (N != M) {
-        cout << "N!=M";
-        exit(1);
-    }
-
-    //Create two matrix in heap
-    int **firstArray = createMatrix(N, M);
-    int **secondArray = createMatrix(N, M);
-
-    //Filling in matrix data
-    for (size_t i = 0; i < N; ++i) {
-        for (size_t j = 0; j < M; ++j) {
-            firstArray[i][j] = rand() % 3 + 3;
-            secondArray[i][j] = rand() % 3 + 3;
-        }
-    }
-
-    cout << "Print first matrix\n";
-    printMatrix(firstArray, N, M);
-    cout << endl;
-
-    cout << "Print second matrix\n";
-    printMatrix(secondArray, N, M);
-    cout << endl;
-
-    int **resultMatrix = additionMatrix(firstArray, secondArray, N, M);
-
-    cout << "Result\n";
-
-    printMatrix(resultMatrix, N, M);
-
-    //Clear memory
-    deleteMatrix(firstArray, N);
-    deleteMatrix(secondArray, N);
-    deleteMatrix(resultMatrix, N);
 
     return 0;
 }
